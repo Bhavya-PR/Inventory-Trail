@@ -111,7 +111,7 @@ def Check_fetch_metadata():
     metadata = {
         "source": "Yahoo Finance",
         "frequency": "daily",
-        "fields": ["Open", "High", "Low", "Close", "Volume", "Adj Close"]
+        "fields": ["Open", "High", "Low", "Close", "Volume", "Close"]
     }
     # print("Metadata for data source:", metadata)
     return metadata
@@ -260,7 +260,7 @@ def get_news_data(stock_ticker):
     # URL to fetch data (Example: Yahoo Finance)
     url = f"https://finance.yahoo.com/quote/{stock_ticker}?p={stock_ticker}"
     
-    try:
+    try: 
         # Send HTTP request to fetch the web page
         response = requests.get(url)
         response.raise_for_status()  # Raise exception for HTTP errors
@@ -485,16 +485,21 @@ data = get_stock_data(ticker, start_date, end_date)
 
 # Display the title and stock graph at the beginning
 st.title('Stock Trading Strategy with Machine Learning and Sentiment Analysis')
+# Define the list of companies
+companies = ["AAPL", "GOOGL", "MSFT", "AMZN", "TSLA","NFLX","NVDA", "DIS"]
 
+# Display the list of companies in the Streamlit app
+st.write("**Available Tickers:**")
+st.write(", ".join(companies)) 
 # Plot stock data first (before running the strategy)
 fig, ax = plt.subplots()
-ax.plot(data.index, data['Adj Close'], label=ticker, color='blue')
+ax.plot(data.index, data['Close'], label=ticker, color='blue')
 ax.set_title(ticker, fontsize=16)
 ax.set_xlabel('Date', fontsize=12)
-ax.set_ylabel('Adj Close', fontsize=12)
+ax.set_ylabel('Close', fontsize=12)
 plt.xticks(rotation=45)
 st.pyplot(fig)
-listt = ['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'TSLA', 'FB', 'NFLX', 'BRK.A', 'NVDA', 'DIS']
+listt = ['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'TSLA','NFLX', 'BRK.A', 'NVDA', 'DIS']
 
 print("Before")
 
